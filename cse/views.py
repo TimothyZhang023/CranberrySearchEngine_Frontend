@@ -26,25 +26,27 @@ def home(request):
 
 def query(request, key):
     p = request.GET.get('p', '1')
-    print p
     url = _get_index_api() + urllib.quote(key.encode("utf-8").replace("\\", "%2f"))
-
     params = {"p": p, }
     r = requests.get(url, params=params)
     print r.url, r.status_code
+    if r.status_code == 200:
+        json_res = r.json()
 
-    json_res = r.json()
+        keyWord = json_res['keyWord'].replace("%2f", "\\")
+        pager = json_res['pager']
+        queryResultItems = json_res['queryResultItems']
+        timeSpeed = json_res['timeSpeed'] / 1000.0
 
-    keyWord = json_res['keyWord'].replace("%2f", "\\")
-    pager = json_res['pager']
-    queryResultItems = json_res['queryResultItems']
+        empty_counter = range(1, pager['totalPage'])
+        #print json_res
 
-    empty_counter = range(1, pager['totalPage'])
-    #print json_res
-
-    return render_to_response('query.html', {'keyWord': keyWord, 'pager': pager, 'empty_counter': empty_counter,
-                                             'queryResultItems': queryResultItems},
-                              context_instance=RequestContext(request))
+        return render_to_response('query.html', {'keyWord': keyWord, 'pager': pager, 'empty_counter': empty_counter,
+                                                 'timeSpeed': timeSpeed,
+                                                 'queryResultItems': queryResultItems},
+                                  context_instance=RequestContext(request))
+    else:
+        return HttpResponse("error")
 
 
 def q(request):
