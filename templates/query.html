@@ -151,7 +151,7 @@
         <div class="col-sm-10">
 
             <div class="alert alert-success" role="alert">
-                搜索 {{ keyWord }} 找到约 {{ pager.totalRow }} 条结果 （用时 {{ timeSpeed }} 秒）
+                搜索 {{ keyWord }} 找到约 {{ pager.totalRow }} 条结果 （用时 {{ processTime }} 秒）
             </div>
 
 
@@ -191,7 +191,7 @@
 
                             <span class="col-sm-12">
                                 {% autoescape off %}
-                                    {{ queryResult.description }}
+                                    {{ queryResult.content }}
                                 {% endautoescape %}
                             </span>
                             </div>

@@ -34,15 +34,15 @@ def query(request, key):
         json_res = r.json()
 
         keyWord = json_res['keyWord'].replace("%2f", "\\")
-        pager = json_res['pager']
-        queryResultItems = json_res['queryResultItems']
-        timeSpeed = json_res['timeSpeed'] / 1000.0
+        pager = json_res['paginationInfo']
+        queryResultItems = json_res['htmlItems']
+        processTime = json_res['processTime'] / 1000.0
 
         empty_counter = range(1, pager['totalPage'])
         #print json_res
 
         return render_to_response('query.html', {'keyWord': keyWord, 'pager': pager, 'empty_counter': empty_counter,
-                                                 'timeSpeed': timeSpeed,
+                                                 'processTime': processTime,
                                                  'queryResultItems': queryResultItems},
                                   context_instance=RequestContext(request))
     else:
