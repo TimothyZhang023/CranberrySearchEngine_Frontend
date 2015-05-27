@@ -26,6 +26,8 @@ urlpatterns = patterns('cse.views',
 
     url(r'^query/(?P<key>(.*))$', 'query', name='query'),
 
+    url(r'^snapshot/(?P<did>(.*))$', 'snapshot', name='snapshot'),
+
 )
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

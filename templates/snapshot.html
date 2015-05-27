@@ -1,3 +1,10 @@
+
+
+{% autoescape off %}
+
+    {{ content }}
+
+{% endautoescape %}
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -97,6 +104,22 @@
 <body>
 
 
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+
+
+            {% autoescape off %}
+
+                {{ content }}
+
+            {% endautoescape %}
+
+        </div>
+    </div>
+</div>
+
+
 <!-- Static navbar -->
 <nav class="navbar  navbar-default navbar-fixed-top">
     <div class="container">
@@ -126,7 +149,14 @@
                         <li><a href="http://blog.zts1993.com/">Timothy</a></li>
                     </ul>
                 </li>
+
+                <li class="active">
+              快照谨为网络故障时之索引，不代表被搜索网站的即时页面。：)
+                </li>
+
+
             </ul>
+
 
             <ul class="nav navbar-nav navbar-right">
                 {#                <li><a href="http://green.njtech.edu.cn/">GreenStudio</a></li>#}
@@ -146,102 +176,6 @@
 </nav>
 
 
-<div class="container">
-    <div class="row">
-        <div class="col-sm-10">
-
-            <div class="alert alert-success" role="alert">
-                搜索 {{ keyWord }} 找到约 {{ pager.totalRow }} 条结果 （用时 {{ processTime }} 秒）
-            </div>
-
-
-            <div class="alert alert-warning alert-dismissible" role="alert" style="display: none">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-                <strong>Warning!</strong> 根据相关法律法规和政策，部分搜索结果未予显示。
-            </div>
-
-
-        </div>
-    </div>
-
-    <hr style="margin: 0px 0">
-
-    <div class="row">
-        <div class="col-sm-9">
-
-
-            {% for queryResult in queryResultItems %}
-
-
-                <div class="row result-item">
-                    <div class="col-sm-12">
-
-                        <div class="row">
-                            <div class="col-sm-12">
-
-                                <h3 class="col-sm-12"><a target="_blank"
-                                                         href=" {{ queryResult.url }}"> {{ queryResult.title }} </a>
-                                </h3>
-
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-sm-12">
-
-                            <span class="col-sm-12">
-                                {% autoescape off %}
-                                    {{ queryResult.content }}
-                                {% endautoescape %}
-                            </span>
-                            <span class="col-sm-12" style="  padding-top: 10px;">
-                              <a style="color: #5668d7;padding: 5px; " href="{% url 'snapshot' did=queryResult.docId  %}
-                                ">
-网页快照
-                              </a>
-                             </span>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-
-            {% endfor %}
-
-
-        </div>
-        <div class="col-sm-3">
-            .....
-
-        </div>
-    </div>
-
-
-    <div class="row">
-        <div class="col-sm-8">
-
-            <nav>
-                <ul class="pagination">
-
-                    {% for a in empty_counter %}
-                        <li>
-                            <a href="{% url 'query' key=keyWord %}?p={{ forloop.counter }}">{{ forloop.counter }}</a>
-                        </li>
-                    {% endfor %}
-
-                </ul>
-            </nav>
-        </div>
-    </div>
-
-    <hr class="featurette-divider">
-
-</div>
-
-
 <footer class="footer">
 
     <div class="container">
@@ -258,5 +192,7 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
 <script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
 </body>
 </html>
+

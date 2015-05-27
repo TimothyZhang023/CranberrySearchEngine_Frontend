@@ -26,7 +26,7 @@ def home(request):
 
 def query(request, key):
     p = request.GET.get('p', '1')
-    url = _get_index_api() + urllib.quote(key.encode("utf-8").replace("\\", "%2f"))
+    url = _get_index_api() + 'query/' + urllib.quote(key.encode("utf-8").replace("\\", "%2f"))
     params = {"p": p, }
     r = requests.get(url, params=params)
     print r.url, r.status_code
@@ -55,3 +55,21 @@ def q(request):
 
         return HttpResponseRedirect(reverse('query', args={key}))
     return HttpResponse("error visit method")
+
+
+def snapshot(request, did):
+    print did
+
+    url = _get_index_api() + 'webcache/' + did
+    r = requests.get(url)
+    print r.url, r.status_code
+    if r.status_code == 200:
+        json_res = r.json()
+
+
+        cacheContent = json_res['content']
+        return render_to_response('snapshot.html', {'content': cacheContent},
+                                  context_instance=RequestContext(request))
+
+    else:
+        return HttpResponse("error")

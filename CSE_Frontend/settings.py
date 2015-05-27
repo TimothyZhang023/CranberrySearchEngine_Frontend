@@ -168,7 +168,7 @@ LOGGING = {
 }
 
 CSE_BACKEND_ENDPOINT = (
-    'http://so.buguake.net:9998/query/',
-    # 'http://127.0.0.1:9998/query/',
+    #'http://so.buguake.net:9998/query/',
+    'http://127.0.0.1:9998/',
     # '127.0.0.1:9998',
 )
